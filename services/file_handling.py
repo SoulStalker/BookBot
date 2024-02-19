@@ -20,7 +20,14 @@ def _get_part_text(text: str, start: int, page_size: int) -> tuple[str, int]:
 
 # The function that forms the book's dictionary
 def prepare_book(path: str) -> None:
-    pass
+    with open(path, 'r', encoding='utf-8') as f:
+        cnt = 1
+        text = f.read()
+        while text:
+            val, page = _get_part_text(text, 0, PAGE_SIZE)
+            book[cnt] = val.lstrip()
+            cnt += 1
+            text = text[page:]
 
 
 # Call the prepare_book function to prepare a book from a text file
