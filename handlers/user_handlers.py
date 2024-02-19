@@ -17,6 +17,22 @@ router = Router()
 # This handler will trigger the "/start" command -
 # add the user to the database if they weren't already there
 # and send them a welcome message
+@router.message(CommandStart())
+async def process_start_command(message: Message):
+    await message.answer(LEXICON[message.text])
+    if message.from_user.id not in users_db:
+        users_db[message.from_user.id] = deepcopy(user_dict_template)
+
+
+# This handler will trigger the "/help" command
+# and send a message to the user with a list of available commands in the bot
+@router.message(Command(commands='help'))
+async def process_help_command(message: Message):
+    await message.answer(LEXICON[message.text])
+
+
+# This handler will trigger the "/beginning" command
+# and send the user the first page of the book with pagination buttons
 @router.message(Command(commands='beginning'))
 async def process_beginning_command(message: Message):
     users_db[message.from_user.id]['page'] = 1
