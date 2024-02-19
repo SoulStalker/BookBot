@@ -5,5 +5,5 @@ user_dict_template = {
 }
 
 # Initialize the "database" :))
-user_db = {}
+users_db = {}
 

@@ -4,7 +4,7 @@ import logging
 from aiogram import Bot, Dispatcher
 from config_data.config import Config, load_config
 from handlers import other_handlers, user_handlers
-from keybords.main_menu import set_main_menu
+from keyboards.main_menu import set_main_menu
 
 
 logger = logging.getLogger(__name__)
@@ -34,7 +34,7 @@ async def main() -> None:
     dp.include_router(user_handlers.router)
     dp.include_router(other_handlers.router)
 
-    # Skip the backlog of updates and run pollin
+    # Skip the backlog of updates and run polling
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling()
 
